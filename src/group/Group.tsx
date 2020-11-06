@@ -1,17 +1,30 @@
-import React, { useState,FC,ReactElement } from 'react';
+import React, { useState,FC,ReactElement, useEffect } from 'react';
 import { 
     Card,
     CardHeader,
     CardContent, 
     CardActions,
     Typography, 
-    Button,  
+    Button,
+    LinearProgress,  
+    makeStyles
 } from '@material-ui/core';
 
 
 import { ThumbUp,ThumbDown } from '@material-ui/icons'
 import { blue, grey } from '@material-ui/core/colors'
 
+
+const groupStyles = makeStyles({
+    classes: {
+        hidden: {
+            display:"none"
+        },
+        shown: {
+            display: "block"
+        }
+    }
+})
 
 // For now...
 type UiMember = {
@@ -25,6 +38,7 @@ export type UiGroup = {
     likes: number;
     dislikes: number;
     membersnum: number;
+    likeToDislikeRatio: number;
 };
 
 type Color = {
@@ -62,19 +76,33 @@ const Group:FC<GroupProps> = ({ group }):ReactElement => {
     const [color,setColor] = useState(grey as Color)
     const [isLiked,setIsLiked] = useState(false)
     const [isDisliked,setIsDisLiked] = useState(false)
+    const [ratio,setRatio] = useState(group.likeToDislikeRatio / 100)
+    const styles = groupStyles({})
 
-    const likeHandler = ():void => {
+
+    const likeHandler:() => void = ():void => {
         setIsDisLiked(false)
         setIsLiked(true)
         setGroupLikes(prevGroupLikes => prevGroupLikes + 1)
         setColor(blue as Color)
     }
 
+    const setRatioHandler = (prevRatio) => {
+        prevRatio
+    }
+
     const disLikeHandler = ():void => {
         setIsDisLiked(true)
         setIsLiked(false)
         setGroupDislikes(prevGroupDislikes => prevGroupDislikes + 1)
+        setRatio(prevRatio => prevRatio + 1 / 100);
         setColor(blue as Color)
+    }
+
+    if(hidden === true) {
+
+    } else {
+
     }
 
 
@@ -95,7 +123,7 @@ const Group:FC<GroupProps> = ({ group }):ReactElement => {
                     
                     <Typography 
                         paragraph 
-                        style={{ display:hidden ? 'none' : 'block' }}
+                        className={''}
                     >
                         {  groupDesc.slice(31) }
                     </Typography>
@@ -124,6 +152,8 @@ const Group:FC<GroupProps> = ({ group }):ReactElement => {
                     variant="outlined" 
                     color="primary"
                 >Join Group</Button>
+                <LinearProgress variant="determinate" value={ratio}></LinearProgress>
+                <LinearProgress className={'name'}></LinearProgress>
             </CardActions>
         </Card>
     )

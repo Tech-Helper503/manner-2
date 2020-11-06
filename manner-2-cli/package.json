@@ -1,0 +1,14 @@
+{
+  "name": "manner-2-cli",
+  "version": "1.0.0",
+  "description": "CLI for manner 2 app",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "yargs": "^16.1.0"
+  },
+  "bin": {
+    "manner":"./index.js"
+  }
+}

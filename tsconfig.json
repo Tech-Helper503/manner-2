@@ -1,0 +1,4 @@
+{
+    "include": ["electron","src","types"],
+    "exclude": ["node_modules"]
+}

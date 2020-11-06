@@ -1,0 +1,14 @@
+name: CD to Firebase hosting
+
+jobs:
+  deploy:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@master
+    - run: npm ci
+    - run: npm test
+    - run: npm run build
+    - uses: w9jds/firebase-actions@master
+      with:
+        args: deploy
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKRN }}
